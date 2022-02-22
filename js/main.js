@@ -6,3 +6,11 @@ function getRandomNumber (min, max) {
 }
 getRandomNumber (4, 10);
 
+// Функция для проверки максимальной длины строки.
+function checkStringLength (comment, maxLenght) {
+  if (maxLenght >= comment.length) {
+    return true;
+  }
+  return false;
+}
+checkStringLength ('Комментарий', 140);
