@@ -1,16 +1,12 @@
-function getRandomNumber (min, max) {
+const getRandomNumber = (min, max) => {
   if (min < max && min >= 0) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   return 'Неправильное число';
-}
+};
+
 getRandomNumber (4, 10);
 
-// Функция для проверки максимальной длины строки.
-function checkStringLength (comment, maxLenght) {
-  if (maxLenght >= comment.length) {
-    return true;
-  }
-  return false;
-}
+const checkStringLength = (comment, maxLength) => maxLength >= comment.length;
+    
 checkStringLength ('Комментарий', 140);
