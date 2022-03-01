@@ -54,4 +54,6 @@ const createPhotoDescription = () => {
     likes: getRandomNumber (15, 200),
     comments: commentsPhoto,
   };
-}
+};
+
+const createData = Array.from({length: 25}, createPhotoDescription);
