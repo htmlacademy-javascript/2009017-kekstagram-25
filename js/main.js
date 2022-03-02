@@ -46,10 +46,12 @@ const createComments = () => {
 
 const commentsPhoto = Array.from({length: 3}, createComments);
 
+let i = 0;
 const createPhotoDescription = () => {
+  i += 1;
   return {
-    id: getRandomNumber (1, 25),
-    url: 'photos/' + getRandomNumber (1, 25) + '.jpg',
+    id: i,
+    url: 'photos/' + i + '.jpg',
     description: 'Описание фотографий',
     likes: getRandomNumber (15, 200),
     comments: commentsPhoto,
