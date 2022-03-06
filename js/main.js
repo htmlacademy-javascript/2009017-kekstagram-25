@@ -5,13 +5,15 @@ const getRandomNumber = (min, max) => {
   return 'Неправильное число';
 };
 
-getRandomNumber (4, 10);
+let i = 0;
+
+getRandomNumber(4, 10);
 
 const checkStringLength = (comment, maxLength) => maxLength >= comment.length;
 
-checkStringLength ('Комментарий', 140);
+checkStringLength('Комментарий', 140);
 
-const USER_NAME = [
+const USER_NAMES = [
   'Алина',
   'Сергей',
   'Мария',
@@ -22,7 +24,7 @@ const USER_NAME = [
   'Марат',
 ];
 
-const TEXT = [
+const TEXTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -31,30 +33,43 @@ const TEXT = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+const DESCRIPTIONS = [
+  'Утром',
+  'Закат',
+  'Мы на отдыхе',
+  'Вечеринка',
+  'На обеде'
+];
+
 const getRandomArrayElement = (elements) => {
   return elements[getRandomNumber(0, elements.length - 1)];
 };
 
 const createComments = () => {
   return {
-    id: getRandomNumber (1, 600),
-    avatar: 'img/avatar-' + getRandomNumber (1, 6) + '.svg',
-    message: getRandomArrayElement(TEXT),
-    name: getRandomArrayElement (USER_NAME),
+    id: getRandomNumber(1, 600),
+    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+    message: createMessage(),//getRandomArrayElement(TEXTS) + ' ' + getRandomArrayElement(TEXTS),
+    name: getRandomArrayElement(USER_NAMES),
   };
 };
 
-const commentsPhoto = Array.from({length: 3}, createComments);
+const createMessage = () => {
+    let number = getRandomNumber(1, 2);
+  if (number > 1) {
+    return getRandomArrayElement(TEXTS)+ ' ' +getRandomArrayElement(TEXTS);
+  }
+  return getRandomArrayElement(TEXTS);
+}
 
-let i = 0;
 const createPhotoDescription = () => {
   i += 1;
   return {
     id: i,
-    url: 'photos/' + i + '.jpg',
-    description: 'Описание фотографий',
-    likes: getRandomNumber (15, 200),
-    comments: commentsPhoto,
+    url: `photos/${i}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomNumber(15, 200),
+    comments: Array.from({length: 3}, createComments),
   };
 };
 
