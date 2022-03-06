@@ -45,22 +45,22 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomNumber(0, elements.length - 1)];
 };
 
+const createMessage = () => {
+  const number = getRandomNumber(1, 2);
+  if (number > 1) {
+    return `${getRandomArrayElement(TEXTS) } ${ getRandomArrayElement(TEXTS)}`;
+  }
+  return getRandomArrayElement(TEXTS);
+};
+
 const createComments = () => {
   return {
     id: getRandomNumber(1, 600),
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-    message: createMessage(),//getRandomArrayElement(TEXTS) + ' ' + getRandomArrayElement(TEXTS),
+    message: createMessage(),
     name: getRandomArrayElement(USER_NAMES),
   };
 };
-
-const createMessage = () => {
-    let number = getRandomNumber(1, 2);
-  if (number > 1) {
-    return getRandomArrayElement(TEXTS)+ ' ' +getRandomArrayElement(TEXTS);
-  }
-  return getRandomArrayElement(TEXTS);
-}
 
 const createPhotoDescription = () => {
   i += 1;
