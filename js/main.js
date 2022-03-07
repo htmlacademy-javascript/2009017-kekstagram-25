@@ -40,11 +40,40 @@ const DESCRIPTIONS = [
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
+<<<<<<< HEAD
 const createMessage = (counter) => {
   if (counter > 1) {
     return `${getRandomArrayElement(TEXTS) } ${ getRandomArrayElement(TEXTS)}`;
   }
   return getRandomArrayElement(TEXTS);
+=======
+const createMessage = () => {
+  const number = getRandomNumber(1, 2);
+  if (number > 1) {
+    return `${getRandomArrayElement(TEXTS) } ${ getRandomArrayElement(TEXTS)}`;
+  }
+  return getRandomArrayElement(TEXTS);
+};
+
+const createComments = () => {
+  return {
+    id: getRandomNumber(1, 600),
+    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+    message: createMessage(),
+    name: getRandomArrayElement(USER_NAMES),
+  };
+};
+
+const createPhotoDescription = () => {
+  i += 1;
+  return {
+    id: i,
+    url: `photos/${i}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomNumber(15, 200),
+    comments: Array.from({length: 3}, createComments),
+  };
+>>>>>>> cb59da3d8ce28f05e28ddd98448d03dde38daded
 };
 
 const createComments = (index, counter) => {
