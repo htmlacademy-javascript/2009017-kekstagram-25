@@ -7,5 +7,4 @@ const getRandomNumber = (min, max) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomArrayElement};
-export {getRandomNumber};
+export {getRandomArrayElement, getRandomNumber};

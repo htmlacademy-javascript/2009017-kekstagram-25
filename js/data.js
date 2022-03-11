@@ -1,5 +1,4 @@
-import {getRandomArrayElement} from './util.js';
-import {getRandomNumber} from './util.js';
+import {getRandomArrayElement, getRandomNumber} from './util.js';
 
 const DESCRIPTIONS_COUNTER = 25;
 
