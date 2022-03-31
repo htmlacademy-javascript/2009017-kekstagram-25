@@ -38,7 +38,7 @@ pristine.addValidator(
   validateHashtagIdentical,
   'хэштеги должны быть разные'
 );
-/*
+
 
 const validateHashtag = (value) => {
   const hash = value.toLowerCase().split(' ');
@@ -54,7 +54,7 @@ pristine.addValidator(
   validateHashtag,
   'хэштеги не должны содержать'
 );
-*/
+
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
