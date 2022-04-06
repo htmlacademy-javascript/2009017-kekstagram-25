@@ -1,2 +1,3 @@
-import './photo.js';
-import './open-edit-photo.js';
+import './miniatures.js';
+import './upload-photo.js';
+
