@@ -1,5 +1,4 @@
 const bigPicture = document.querySelector('.big-picture');
-
 const bigPictureClose = document.querySelector('.big-picture__cancel');
 
 const onDocumentKeydown = (evt) =>{
