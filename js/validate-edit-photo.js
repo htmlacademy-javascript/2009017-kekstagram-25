@@ -17,6 +17,12 @@ const onDocumentKeydown = (evt) =>{
   }
 };
 
+const onDocumentClick = (evt) => {
+  if (!evt.target.closest('div')) {
+    closeMessage();
+  }
+};
+
 const showSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   const successMessage = successMessageTemplate.cloneNode(true);
@@ -24,7 +30,7 @@ const showSuccessMessage = () => {
   const button = successMessage.querySelector('.success__button');
   button.addEventListener('click', closeMessage);
   document.addEventListener('keydown', onDocumentKeydown);
-
+  document.addEventListener('click', onDocumentClick);
 };
 
 const showErrorMessage = () => {
