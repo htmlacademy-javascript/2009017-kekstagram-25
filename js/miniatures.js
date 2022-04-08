@@ -33,7 +33,7 @@ const createRandomData = (pictureData) => {
   const pictureDataRandom = copyPictureData.sort(() => Math.random() - 0.5).splice(0, 10);
 
   buttonRandom.addEventListener('click', () => {
-    //как то убрать предыдущие фото
+    document.querySelectorAll('.picture').forEach((a) => a.remove());
     buttonRandom.classList.add('img-filters__button--active');
     buttonDiscussed.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
@@ -46,7 +46,7 @@ const creatDiscussedData = (pictureData) => {
   const pictureDataDiscussed = copyPictureData.sort((a, b) => b.comments.length - a.comments.length);
 
   buttonDiscussed.addEventListener('click', () => {
-    //как то убрать предыдущие фото
+    document.querySelectorAll('.picture').forEach((a) => a.remove());
     buttonDiscussed.classList.add('img-filters__button--active');
     buttonRandom.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
@@ -56,7 +56,7 @@ const creatDiscussedData = (pictureData) => {
 
 const createDefaultData = (pictureData) => {
   buttonDefault.addEventListener('click', () => {
-    //как то убрать предыдущие фото
+    document.querySelectorAll('.picture').forEach((a) => a.remove());
     buttonDefault.classList.add('img-filters__button--active');
     buttonRandom.classList.remove('img-filters__button--active');
     buttonDiscussed.classList.remove('img-filters__button--active');
