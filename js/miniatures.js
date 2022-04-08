@@ -1,12 +1,16 @@
-//import {createData} from './data.js';
 import {openBigPicture} from './photo.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-//const pictureData = createData();
 const pictures = document.querySelector('.pictures');
 const pictureFragment = document.createDocumentFragment();
-const createData = (pictureData) => {
-  pictureData.forEach((item) => {
+
+const imgFilter = document.querySelector('.img-filters');
+const buttonRandom = imgFilter.querySelector('#filter-random');
+const buttonDiscussed = imgFilter.querySelector('#filter-discussed');
+const buttonDefault = imgFilter.querySelector('#filter-default');
+
+const createMiniatures = (array) => {
+  array.forEach((item) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = item.url;
     pictureElement.querySelector('.picture__likes').textContent = item.likes;
@@ -19,4 +23,44 @@ const createData = (pictureData) => {
   pictures.appendChild(pictureFragment);
 };
 
-export {createData};
+const createData = (pictureData) => {
+  createMiniatures(pictureData);
+  imgFilter.classList.remove('img-filters--inactive');
+};
+
+const createRandomData = (pictureData) => {
+  const copyPictureData = pictureData.slice();
+  const pictureDataRandom = copyPictureData.sort(() => Math.random() - 0.5).splice(0, 10);
+
+  buttonRandom.addEventListener('click', () => {
+    //как то убрать предыдущие фото
+    buttonRandom.classList.add('img-filters__button--active');
+    buttonDiscussed.classList.remove('img-filters__button--active');
+    buttonDefault.classList.remove('img-filters__button--active');
+    createMiniatures(pictureDataRandom);
+  });
+};
+
+const creatDiscussedData = (pictureData) => {
+  const copyPictureData = pictureData.slice();
+  const pictureDataDiscussed = copyPictureData.sort((a, b) => b.comments.length - a.comments.length);
+
+  buttonDiscussed.addEventListener('click', () => {
+    //как то убрать предыдущие фото
+    buttonDiscussed.classList.add('img-filters__button--active');
+    buttonRandom.classList.remove('img-filters__button--active');
+    buttonDefault.classList.remove('img-filters__button--active');
+    createMiniatures(pictureDataDiscussed);
+  });
+};
+
+const createDefaultData = (pictureData) => {
+  buttonDefault.addEventListener('click', () => {
+    //как то убрать предыдущие фото
+    buttonDefault.classList.add('img-filters__button--active');
+    buttonRandom.classList.remove('img-filters__button--active');
+    buttonDiscussed.classList.remove('img-filters__button--active');
+    createMiniatures(pictureData);
+  });
+};
+export {createData, createRandomData, creatDiscussedData, createDefaultData};
