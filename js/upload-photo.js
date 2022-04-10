@@ -2,11 +2,12 @@ import {createEffect, imgPreviewClass} from './edit-photo-effects.js';
 import {changeSize, changeSizeRemove} from './edit-photo-scale.js';
 import {textComment, hashtag} from './validate-edit-photo.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const imgUpload = document.querySelector('#upload-file');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const pictureUpload = document.querySelector('.img-upload__overlay');
 const pictureUploadCancel = document.querySelector('#upload-cancel');
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const onDocumentKeydown = (evt) =>{
   if (evt.key === 'Escape' && !evt.target.closest('.text__hashtags') && !evt.target.closest('.text__description')) {

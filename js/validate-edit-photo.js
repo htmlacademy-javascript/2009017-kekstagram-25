@@ -1,15 +1,16 @@
 import {showAlert} from './util.js';
 import {sendData} from './api.js';
 
+const REGULAR = /^#[A-Za-zА-Яа-яЁё0-9]+$/;
+const MAX_HASHTAG_COUNTER = 5;
+const MAX_HASHTAG_LENGTH = 20;
+
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const form = document.querySelector('.img-upload__form');
 const hashtag = form.querySelector('.text__hashtags');
 const submitButton = form.querySelector('.img-upload__submit');
 const textComment = form.querySelector('.text__description');
-const regular = /^#[A-Za-zА-Яа-яЁё0-9]+$/;
-const MAX_HASHTAG_COUNTER = 5;
-const MAX_HASHTAG_LENGTH = 20;
 
 const closeMessage = () => document.body.lastChild.remove();
 
@@ -56,7 +57,7 @@ const validateHashtagStartWith = (value) => creatHashtagArray(value).every((elem
 const validateHashtagLength = (value) => creatHashtagArray(value).every((element) => element.length <= MAX_HASHTAG_LENGTH);
 const validateHashtag = (value) => creatHashtagArray(value).every((element) => {
   if (element.length > 1) {
-    return regular.test(element);
+    return REGULAR.test(element);
   } else {
     return true;
   }

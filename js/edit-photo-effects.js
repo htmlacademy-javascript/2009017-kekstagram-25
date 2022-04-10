@@ -52,7 +52,7 @@ const addClass = (name) => {
 const addStyle = (index) => {
   sliderElement.noUiSlider.on('update', () => {
     valueElement.value = sliderElement.noUiSlider.get();
-    imgPreviewClass.style = `filter: ${namesOfStyles[index-1]}(${valueElement.value}${units[index-1]})`;
+    imgPreviewClass.style.filter = `${namesOfStyles[index-1]}(${valueElement.value}${units[index-1]})`;
   });
 };
 
@@ -69,7 +69,7 @@ const createEffect = () => {
       if (evt.target.value === 'none') {
         sliderElement.classList.add('hidden');
         imgPreviewClass.className = '';
-        imgPreviewClass.style = '';
+        imgPreviewClass.style.filter = 'none';
         return;
       }
       sliderElement.classList.remove('hidden');
