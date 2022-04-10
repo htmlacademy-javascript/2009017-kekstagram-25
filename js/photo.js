@@ -1,5 +1,3 @@
-const COMMENTS_COUNT = 5;
-
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = document.querySelector('.big-picture__cancel');
 const commentsBigPicture = bigPicture.querySelector('.social__comments');
@@ -7,7 +5,7 @@ const commentBigPicture = bigPicture.querySelector('.social__comment');
 const commentFragment = document.createDocumentFragment();
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const commentCount = bigPicture.querySelector('.social__comment-count');
-
+const COMMENTS_COUNT = 5;
 let displayedComments = 0;
 let comments;
 let commentsLength;

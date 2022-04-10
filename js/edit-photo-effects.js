@@ -3,8 +3,8 @@ const valueElement = document.querySelector('.effect-level__value');
 const radioButtons = document.querySelectorAll('.effects__item');
 const imgPreviewClass = document.querySelector('.img-upload__preview img');
 
-const nameStyle = ['grayscale', 'sepia', 'invert', 'blur', 'brightness'];
-const sliderStyle = [
+const namesOfStyles = ['grayscale', 'sepia', 'invert', 'blur', 'brightness'];
+const sliderStyles = [
   {range: {
     min: 0,
     max: 1,
@@ -52,13 +52,13 @@ const addClass = (name) => {
 const addStyle = (index) => {
   sliderElement.noUiSlider.on('update', () => {
     valueElement.value = sliderElement.noUiSlider.get();
-    imgPreviewClass.style = `filter: ${nameStyle[index-1]}(${valueElement.value}${units[index-1]})`;
+    imgPreviewClass.style = `filter: ${namesOfStyles[index-1]}(${valueElement.value}${units[index-1]})`;
   });
 };
 
 const updateSliderStyle = (index) => {
   sliderElement.noUiSlider.updateOptions(
-    sliderStyle[index-1]
+    sliderStyles[index-1]
   );
 };
 
@@ -70,12 +70,12 @@ const createEffect = () => {
         sliderElement.classList.add('hidden');
         imgPreviewClass.className = '';
         imgPreviewClass.style = '';
-      } else {
-        sliderElement.classList.remove('hidden');
-        addClass(evt.target.value);
-        addStyle(index);
-        updateSliderStyle(index);
+        return;
       }
+      sliderElement.classList.remove('hidden');
+      addClass(evt.target.value);
+      addStyle(index);
+      updateSliderStyle(index);
     });
   });
 };

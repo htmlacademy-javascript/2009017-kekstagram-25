@@ -2,12 +2,11 @@ import {createEffect, imgPreviewClass} from './edit-photo-effects.js';
 import {changeSize, changeSizeRemove} from './edit-photo-scale.js';
 import {textComment, hashtag} from './validate-edit-photo.js';
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
 const imgUpload = document.querySelector('#upload-file');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const pictureUpload = document.querySelector('.img-upload__overlay');
 const pictureUploadCancel = document.querySelector('#upload-cancel');
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const onDocumentKeydown = (evt) =>{
   if (evt.key === 'Escape' && !evt.target.closest('.text__hashtags') && !evt.target.closest('.text__description')) {
@@ -19,11 +18,12 @@ const openImgUpload = () => {
   pictureUpload.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  pictureUploadCancel.addEventListener('click', closeImgUpload);
   changeSize();
   createEffect();
 };
 
-const closeImgUpload = () => {
+function closeImgUpload () {
   pictureUpload.classList.add('hidden');
   document.body.classList.remove('modal-open');
   hashtag.value = '';
@@ -32,12 +32,9 @@ const closeImgUpload = () => {
   imgPreviewClass.style = '';
   imgPreviewClass.className = '';
   document.removeEventListener('keydown', onDocumentKeydown);
+  pictureUploadCancel.removeEventListener('click', closeImgUpload);
   changeSizeRemove();
-};
-
-pictureUploadCancel.addEventListener('click', () => {
-  closeImgUpload();
-});
+}
 
 const onUploadFileChange = (evt) => {
   evt.preventDefault();

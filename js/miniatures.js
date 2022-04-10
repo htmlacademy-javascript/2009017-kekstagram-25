@@ -1,15 +1,14 @@
 import {openBigPicture} from './photo.js';
 import {debounce} from './util.js';
-const RERENDER_DELAY = 500;
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const pictures = document.querySelector('.pictures');
-
+const containerOfPictures = document.querySelector('.pictures');
 const imgFilter = document.querySelector('.img-filters');
 const buttonRandom = imgFilter.querySelector('#filter-random');
 const buttonDiscussed = imgFilter.querySelector('#filter-discussed');
 const buttonDefault = imgFilter.querySelector('#filter-default');
 const pictureFragment = document.createDocumentFragment();
+const RERENDER_DELAY = 500;
 
 const createMiniatures = (array) => {
   array.forEach((item) => {
@@ -22,7 +21,7 @@ const createMiniatures = (array) => {
     });
     pictureFragment.appendChild(pictureElement);
   });
-  pictures.appendChild(pictureFragment);
+  containerOfPictures.appendChild(pictureFragment);
 };
 
 const createData = (pictureData) => {
