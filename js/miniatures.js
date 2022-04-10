@@ -1,4 +1,6 @@
 import {openBigPicture} from './photo.js';
+import {debounce} from './util.js';
+const RERENDER_DELAY = 500;
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
@@ -29,7 +31,7 @@ const createData = (pictureData) => {
 };
 
 const createRandomData = (pictureData) => {
-  buttonRandom.addEventListener('click', () => {
+  buttonRandom.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     const copyPictureData = pictureData.slice();
     const pictureDataRandom = copyPictureData.sort(() => Math.random() - 0.5).splice(0, 10);
@@ -37,12 +39,11 @@ const createRandomData = (pictureData) => {
     buttonDiscussed.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
     createMiniatures(pictureDataRandom);
-  });
+  }, RERENDER_DELAY));
 };
 
-
 const creatDiscussedData = (pictureData) => {
-
+  buttonDiscussed.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     const copyPictureData = pictureData.slice();
     const pictureDataDiscussed = copyPictureData.sort((a, b) => b.comments.length - a.comments.length);
@@ -50,18 +51,17 @@ const creatDiscussedData = (pictureData) => {
     buttonRandom.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
     createMiniatures(pictureDataDiscussed);
-  };
-
-  buttonDiscussed.addEventListener('click', creatDiscussedData);
+  }, RERENDER_DELAY));
+};
 
 const createDefaultData = (pictureData) => {
-  buttonDefault.addEventListener('click', () => {
+  buttonDefault.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     buttonDefault.classList.add('img-filters__button--active');
     buttonRandom.classList.remove('img-filters__button--active');
     buttonDiscussed.classList.remove('img-filters__button--active');
     createMiniatures(pictureData);
-  });
+  }, RERENDER_DELAY));
 };
 
 export {createData, createRandomData, creatDiscussedData, createDefaultData};

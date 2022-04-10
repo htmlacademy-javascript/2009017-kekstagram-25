@@ -2,6 +2,8 @@ import {createEffect, imgPreviewClass} from './edit-photo-effects.js';
 import {changeSize, changeSizeRemove} from './edit-photo-scale.js';
 import {textComment, hashtag} from './validate-edit-photo.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const imgUpload = document.querySelector('#upload-file');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const pictureUpload = document.querySelector('.img-upload__overlay');
@@ -38,8 +40,14 @@ pictureUploadCancel.addEventListener('click', () => {
 });
 
 const onUploadFileChange = (evt) => {
-  imgUploadPreview.src = URL.createObjectURL(evt.target.files[0]);
-  openImgUpload();
+  evt.preventDefault();
+  const file = imgUpload.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imgUploadPreview.src = URL.createObjectURL(file);
+    openImgUpload();
+  }
 };
 
 imgUpload.addEventListener('change', onUploadFileChange);

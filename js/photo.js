@@ -23,12 +23,12 @@ const onBigPictureCloseClick = (evt) => {
   closeBigPicture();
 };
 
-const closeBigPicture = () => {
+function closeBigPicture () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   removeModalListeners();
-};
+}
 
 const makePhotoComments = (array) =>
   array.forEach((item) => {
