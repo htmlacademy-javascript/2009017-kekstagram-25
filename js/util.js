@@ -1,14 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-const getRandomNumber = (min, max) => {
-  if (min < max && min >= 0) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-  return 'Неправильное число';
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
-
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
@@ -30,4 +21,12 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomArrayElement, getRandomNumber, showAlert};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {showAlert, debounce};

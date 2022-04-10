@@ -2,12 +2,12 @@ import {openBigPicture} from './photo.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
-const pictureFragment = document.createDocumentFragment();
 
 const imgFilter = document.querySelector('.img-filters');
 const buttonRandom = imgFilter.querySelector('#filter-random');
 const buttonDiscussed = imgFilter.querySelector('#filter-discussed');
 const buttonDefault = imgFilter.querySelector('#filter-default');
+const pictureFragment = document.createDocumentFragment();
 
 const createMiniatures = (array) => {
   array.forEach((item) => {
@@ -29,11 +29,10 @@ const createData = (pictureData) => {
 };
 
 const createRandomData = (pictureData) => {
-  const copyPictureData = pictureData.slice();
-  const pictureDataRandom = copyPictureData.sort(() => Math.random() - 0.5).splice(0, 10);
-
   buttonRandom.addEventListener('click', () => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
+    const copyPictureData = pictureData.slice();
+    const pictureDataRandom = copyPictureData.sort(() => Math.random() - 0.5).splice(0, 10);
     buttonRandom.classList.add('img-filters__button--active');
     buttonDiscussed.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
@@ -41,18 +40,19 @@ const createRandomData = (pictureData) => {
   });
 };
 
-const creatDiscussedData = (pictureData) => {
-  const copyPictureData = pictureData.slice();
-  const pictureDataDiscussed = copyPictureData.sort((a, b) => b.comments.length - a.comments.length);
 
-  buttonDiscussed.addEventListener('click', () => {
+const creatDiscussedData = (pictureData) => {
+
     document.querySelectorAll('.picture').forEach((a) => a.remove());
+    const copyPictureData = pictureData.slice();
+    const pictureDataDiscussed = copyPictureData.sort((a, b) => b.comments.length - a.comments.length);
     buttonDiscussed.classList.add('img-filters__button--active');
     buttonRandom.classList.remove('img-filters__button--active');
     buttonDefault.classList.remove('img-filters__button--active');
     createMiniatures(pictureDataDiscussed);
-  });
-};
+  };
+
+  buttonDiscussed.addEventListener('click', creatDiscussedData);
 
 const createDefaultData = (pictureData) => {
   buttonDefault.addEventListener('click', () => {
@@ -63,4 +63,5 @@ const createDefaultData = (pictureData) => {
     createMiniatures(pictureData);
   });
 };
+
 export {createData, createRandomData, creatDiscussedData, createDefaultData};

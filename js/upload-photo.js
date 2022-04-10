@@ -1,4 +1,5 @@
-import { createEffect, changeSize, changeSizeRemove, imgPreviewClass } from './edit-photo.js';
+import {createEffect, imgPreviewClass} from './edit-photo-effects.js';
+import {changeSize, changeSizeRemove} from './edit-photo-scale.js';
 import {textComment, hashtag} from './validate-edit-photo.js';
 
 const imgUpload = document.querySelector('#upload-file');

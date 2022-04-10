@@ -1,6 +1,8 @@
 import {showAlert} from './util.js';
 import {sendData} from './api.js';
 
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const form = document.querySelector('.img-upload__form');
 const hashtag = form.querySelector('.text__hashtags');
 const submitButton = form.querySelector('.img-upload__submit');
@@ -24,7 +26,6 @@ const onDocumentClick = (evt) => {
 };
 
 const showSuccessMessage = () => {
-  const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   const successMessage = successMessageTemplate.cloneNode(true);
   document.body.appendChild(successMessage);
   const button = successMessage.querySelector('.success__button');
@@ -34,12 +35,12 @@ const showSuccessMessage = () => {
 };
 
 const showErrorMessage = () => {
-  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
   document.body.appendChild(errorMessage);
   const errorButton = errorMessage.querySelector('.error__button');
   errorButton.addEventListener('click', closeMessage);
   document.addEventListener('keydown', onDocumentKeydown);
+
 };
 
 const pristine = new Pristine(form, {
@@ -61,7 +62,6 @@ const validateHashtag = (value) => creatHashtagArray(value).every((element) => {
   }
 });
 const validateHashtagOnlyHashtag = (value) => creatHashtagArray(value).every((element) => element.length === 1 && element === '#' ? false : true);
-
 const validateHashtagIdentical = (value) => creatHashtagArray(value).every((element, index, array) => array.indexOf(element) === index);
 
 pristine.addValidator(hashtag, validateHashtagQuantity, 'Максимум 5 хэштегов');
@@ -104,5 +104,3 @@ const setUserFormSubmit = (onSuccess) => {
 };
 
 export {setUserFormSubmit, textComment, hashtag};
-
-
