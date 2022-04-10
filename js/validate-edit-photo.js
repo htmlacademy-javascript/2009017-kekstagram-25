@@ -61,7 +61,7 @@ const validateHashtag = (value) => creatHashtagArray(value).every((element) => {
     return true;
   }
 });
-const validateHashtagOnlyHashtag = (value) => creatHashtagArray(value).every((element) => element.length === 1 && element === '#' ? false : true);
+const validateHashtagOnlyHashtag = (value) => creatHashtagArray(value).every((element) => !(element.length === 1 && element === '#'));
 const validateHashtagIdentical = (value) => creatHashtagArray(value).every((element, index, array) => array.indexOf(element) === index);
 
 pristine.addValidator(hashtag, validateHashtagQuantity, 'Максимум 5 хэштегов');
