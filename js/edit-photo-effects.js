@@ -95,31 +95,27 @@ const updateSliderStyle = (style) => {
 };
 
 const onRadioButtonChange = (evt) => {
-  if (evt.target.value === 'none') {
-    sliderParent.classList.add('hidden');
-    imgPreviewClass.className = '';
-    imgPreviewClass.style.filter = 'none';
-    return;
+  if (evt.target.matches('input[type="radio"]')) {
+    if (evt.target.value === 'none') {
+      sliderParent.classList.add('hidden');
+      imgPreviewClass.className = '';
+      imgPreviewClass.style.filter = 'none';
+      return;
+    }
+    sliderParent.classList.remove('hidden');
+    addClass(evt.target.value);
+    addStyle(sliderStyles[evt.target.value]);
+    updateSliderStyle(sliderStyles[evt.target.value]);
   }
-  sliderParent.classList.remove('hidden');
-  addClass(evt.target.value);
-  addStyle(sliderStyles[evt.target.value]);
-  updateSliderStyle(sliderStyles[evt.target.value]);
 };
 
 const createEffect = () => {
   sliderParent.classList.add('hidden');
-  radioButtonParent.addEventListener('change', (evt) => {
-    if (evt.target.matches('input[type="radio"]')) {
-      onRadioButtonChange(evt);
-    }
-  });
+  radioButtonParent.addEventListener('change', onRadioButtonChange);
 };
 
 const removeEffect = () => {
-  radioButtonParent.removeEventListener('change', (evt) => {
-    onRadioButtonChange(evt);
-  });
+  radioButtonParent.removeEventListener('change', onRadioButtonChange);
 };
 
 noUiSlider.create(slider, sliderStyles.none);
