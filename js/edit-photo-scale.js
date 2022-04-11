@@ -12,14 +12,14 @@ const setValue = (size) => {
   actualSize = size;
 };
 
-const onIncreaseButton = () => {
+const onIncreaseButtonClick = () => {
   if (actualSize > 25) {
     const newSize = actualSize - SCALE_STEP;
     setValue(newSize);
   }
 };
 
-const onReduceButton = () => {
+const onReduceButtonClick = () => {
   if (actualSize < 100) {
     const newSize = actualSize + SCALE_STEP;
     setValue(newSize);
@@ -28,13 +28,13 @@ const onReduceButton = () => {
 
 const changeSize = () => {
   setValue(100);
-  buttonSmaller.addEventListener('click', onIncreaseButton);
-  buttonBigger.addEventListener('click', onReduceButton);
+  buttonSmaller.addEventListener('click', onIncreaseButtonClick);
+  buttonBigger.addEventListener('click', onReduceButtonClick);
 };
 
 const changeSizeRemove = () => {
-  buttonSmaller.removeEventListener('click', onIncreaseButton);
-  buttonBigger.removeEventListener('click', onReduceButton);
+  buttonSmaller.removeEventListener('click', onIncreaseButtonClick);
+  buttonBigger.removeEventListener('click', onReduceButtonClick);
 };
 
 export {changeSize, changeSizeRemove};

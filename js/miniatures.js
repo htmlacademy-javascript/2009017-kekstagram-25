@@ -13,24 +13,24 @@ const pictureFragment = document.createDocumentFragment();
 
 const createMiniatures = (array) => {
   array.forEach((item) => {
-    const pictureElement = pictureTemplate.cloneNode(true);
-    pictureElement.querySelector('.picture__img').src = item.url;
-    pictureElement.querySelector('.picture__likes').textContent = item.likes;
-    pictureElement.querySelector('.picture__comments').textContent = item.comments.length;
-    pictureElement.addEventListener('click', () => {
+    const picture = pictureTemplate.cloneNode(true);
+    picture.querySelector('.picture__img').src = item.url;
+    picture.querySelector('.picture__likes').textContent = item.likes;
+    picture.querySelector('.picture__comments').textContent = item.comments.length;
+    picture.addEventListener('click', () => {
       openBigPicture(item);
     });
-    pictureFragment.appendChild(pictureElement);
+    pictureFragment.appendChild(picture);
   });
   containerOfPictures.appendChild(pictureFragment);
 };
 
-const createData = (pictureData) => {
+const setStartPageState = (pictureData) => {
   createMiniatures(pictureData);
   imgFilter.classList.remove('img-filters--inactive');
 };
 
-const createRandomData = (pictureData) => {
+const setRandomPageState = (pictureData) => {
   buttonRandom.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     const copyPictureData = pictureData.slice();
@@ -42,7 +42,7 @@ const createRandomData = (pictureData) => {
   }, RERENDER_DELAY));
 };
 
-const creatDiscussedData = (pictureData) => {
+const setDiscussedPageState = (pictureData) => {
   buttonDiscussed.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     const copyPictureData = pictureData.slice();
@@ -54,7 +54,7 @@ const creatDiscussedData = (pictureData) => {
   }, RERENDER_DELAY));
 };
 
-const createDefaultData = (pictureData) => {
+const setDefaultPageState = (pictureData) => {
   buttonDefault.addEventListener('click', debounce(() => {
     document.querySelectorAll('.picture').forEach((a) => a.remove());
     buttonDefault.classList.add('img-filters__button--active');
@@ -64,4 +64,4 @@ const createDefaultData = (pictureData) => {
   }, RERENDER_DELAY));
 };
 
-export {createData, createRandomData, creatDiscussedData, createDefaultData};
+export {setStartPageState, setRandomPageState, setDiscussedPageState, setDefaultPageState};

@@ -1,19 +1,22 @@
 import {showAlert} from './util.js';
 
+const GET_DATA_URL = 'https://25.javascript.pages.academy/kekstagram/data';
+const SEND_DATA_URL = 'https://25.javascript.pages.academy/kekstagram';
+
 const getData = (onSuccess) => {
-  fetch('https://25.javascript.pages.academy/kekstagram/data')
+  fetch(GET_DATA_URL)
     .then((response) => response.json())
     .then((photo) => {
       onSuccess(photo);
     })
     .catch(() => {
-      showAlert('Не удалось получить данные. Попробуйте ещё раз');
+      showAlert('Не удалось получить данные. Попробуйте перезагрузить страницу');
     });
 };
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    SEND_DATA_URL,
     {
       method: 'POST',
       body,
