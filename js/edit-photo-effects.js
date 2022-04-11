@@ -1,93 +1,127 @@
-const sliderElement = document.querySelector('.effect-level__slider');
-const valueElement = document.querySelector('.effect-level__value');
-const radioButtons = document.querySelectorAll('.effects__item');
+const sliderParent = document.querySelector('.img-upload__effect-level');
+const slider = document.querySelector('.effect-level__slider');
+const effectLevelInput = document.querySelector('.effect-level__value');
+const radioButtonParent = document.querySelector('.effects__list');
 const imgPreviewClass = document.querySelector('.img-upload__preview img');
 
-const namesOfStyles = ['grayscale', 'sepia', 'invert', 'blur', 'brightness'];
-const sliderStyles = [
-  {range: {
-    min: 0,
-    max: 1,
+const sliderStyles = {
+  none: {
+    range: {
+      min: 0,
+      max: 1,
+    },
+    start: 1,
+    step: 0.1,
+    connect: 'lower',
   },
-  start: 1,
-  step: 0.1,
+  chrome: {
+    name: 'grayscale',
+    unit: '',
+    setting: {
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+    }
   },
-  {range: {
-    min: 0,
-    max: 1,
+  sepia: {
+    name: 'sepia',
+    unit: '',
+    setting: {
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+    }
   },
-  start: 1,
-  step: 0.1,
+  marvin: {
+    name: 'invert',
+    unit: '%',
+    setting: {
+      range: {
+        min: 0,
+        max: 100,
+      },
+      start: 100,
+      step: 1,
+    }
   },
-  {range: {
-    min: 0,
-    max: 100,
+  phobos: {
+    name: 'blur',
+    unit: 'px',
+    setting: {
+      range: {
+        min: 0,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+    }
   },
-  start: 100,
-  step: 1,
-  },
-  {range: {
-    min: 0,
-    max: 3,
-  },
-  start: 3,
-  step: 0.1,
-  },
-  {range: {
-    min: 0,
-    max: 3,
-  },
-  start: 3,
-  step: 0.1,
-  },
-];
-
-const units = ['', '', '%', 'px', ''];
+  heat: {
+    name: 'brightness',
+    unit: '',
+    setting: {
+      range: {
+        min: 1,
+        max: 3,
+      },
+      start: 3,
+      step: 0.1,
+    }
+  }
+};
 
 const addClass = (name) => {
   imgPreviewClass.className = '';
   imgPreviewClass.classList.add(`effects__preview--${name}`);
 };
 
-const addStyle = (index) => {
-  sliderElement.noUiSlider.on('update', () => {
-    valueElement.value = sliderElement.noUiSlider.get();
-    imgPreviewClass.style.filter = `${namesOfStyles[index-1]}(${valueElement.value}${units[index-1]})`;
+const addStyle = (style) => {
+  slider.noUiSlider.on('update', () => {
+    effectLevelInput.value = slider.noUiSlider.get();
+    imgPreviewClass.style.filter = `${style.name}(${effectLevelInput.value}${style.unit})`;
   });
 };
 
-const updateSliderStyle = (index) => {
-  sliderElement.noUiSlider.updateOptions(
-    sliderStyles[index-1]
+const updateSliderStyle = (style) => {
+  slider.noUiSlider.updateOptions(
+    style.setting
   );
 };
 
+const onRadioButtonChange = (evt) => {
+  if (evt.target.value === 'none') {
+    sliderParent.classList.add('hidden');
+    imgPreviewClass.className = '';
+    imgPreviewClass.style.filter = 'none';
+    return;
+  }
+  sliderParent.classList.remove('hidden');
+  addClass(evt.target.value);
+  addStyle(sliderStyles[evt.target.value]);
+  updateSliderStyle(sliderStyles[evt.target.value]);
+};
+
 const createEffect = () => {
-  sliderElement.classList.add('hidden');
-  radioButtons.forEach((button,index) => {
-    button.addEventListener('change', (evt) => {
-      if (evt.target.value === 'none') {
-        sliderElement.classList.add('hidden');
-        imgPreviewClass.className = '';
-        imgPreviewClass.style.filter = 'none';
-        return;
-      }
-      sliderElement.classList.remove('hidden');
-      addClass(evt.target.value);
-      addStyle(index);
-      updateSliderStyle(index);
-    });
+  sliderParent.classList.add('hidden');
+  radioButtonParent.addEventListener('change', (evt) => {
+    if (evt.target.matches('input[type="radio"]')) {
+      onRadioButtonChange(evt);
+    }
   });
 };
 
-noUiSlider.create(sliderElement, {
-  range: {
-    min: 0,
-    max: 1,
-  },
-  start: 1,
-  step: 0.1,
-  connect: 'lower',
-});
+const removeEffect = () => {
+  radioButtonParent.removeEventListener('change', (evt) => {
+    onRadioButtonChange(evt);
+  });
+};
 
-export {createEffect, imgPreviewClass};
+noUiSlider.create(slider, sliderStyles.none);
+
+export {createEffect, removeEffect, imgPreviewClass};

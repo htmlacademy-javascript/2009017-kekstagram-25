@@ -31,12 +31,12 @@ function closeBigPicture () {
 
 const makePhotoComments = (array) =>
   array.forEach((item) => {
-    const commentElement = commentBigPicture.cloneNode(true);
-    const commentElementImg = commentElement.querySelector('.social__picture');
-    commentElementImg.src = item.avatar;
-    commentElementImg.alt = item.name;
-    commentElement.querySelector('.social__text').textContent = item.message;
-    commentFragment.appendChild(commentElement);
+    const comment = commentBigPicture.cloneNode(true);
+    const commentImg = comment.querySelector('.social__picture');
+    commentImg.src = item.avatar;
+    commentImg.alt = item.name;
+    comment.querySelector('.social__text').textContent = item.message;
+    commentFragment.appendChild(comment);
     commentsBigPicture.append(commentFragment);
   });
 
@@ -84,9 +84,6 @@ const openBigPicture = (dataId) => {
   document.body.classList.add('modal-open');
   comments = dataId.comments;
   commentsLength =  comments.length;
-  if (commentsLength <= 5) {
-    commentsLoader.classList.add('hidden');
-  }
   fillBigPicture(dataId);
   showComments(0, COMMENTS_COUNT);
   addModalListeners();

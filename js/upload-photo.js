@@ -1,4 +1,4 @@
-import {createEffect, imgPreviewClass} from './edit-photo-effects.js';
+import {createEffect, removeEffect, imgPreviewClass} from './edit-photo-effects.js';
 import {changeSize, changeSizeRemove} from './edit-photo-scale.js';
 import {textComment, hashtag} from './validate-edit-photo.js';
 
@@ -15,11 +15,13 @@ const onDocumentKeydown = (evt) =>{
   }
 };
 
+const onPictureUploadCancelClick = () => closeImgUpload();
+
 const openImgUpload = () => {
   pictureUpload.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  pictureUploadCancel.addEventListener('click', closeImgUpload);
+  pictureUploadCancel.addEventListener('click', onPictureUploadCancelClick);
   changeSize();
   createEffect();
 };
@@ -35,6 +37,7 @@ function closeImgUpload () {
   document.removeEventListener('keydown', onDocumentKeydown);
   pictureUploadCancel.removeEventListener('click', closeImgUpload);
   changeSizeRemove();
+  removeEffect();
 }
 
 const onUploadFileChange = (evt) => {
