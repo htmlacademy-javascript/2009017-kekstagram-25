@@ -35,7 +35,7 @@ function closeImgUpload () {
   imgPreviewClass.style = '';
   imgPreviewClass.className = '';
   document.removeEventListener('keydown', onDocumentKeydown);
-  pictureUploadCancel.removeEventListener('click', closeImgUpload);
+  pictureUploadCancel.removeEventListener('click', onPictureUploadCancelClick);
   changeSizeRemove();
   removeEffect();
 }
